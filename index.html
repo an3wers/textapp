@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            text-rendering: optimizeSpeed;
+            line-height: 1.5;
+        }
+
+        textarea {
+            width: 600px;
+        }
+
+        .wrapper {
+            max-width: 600px;
+
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            margin: 0 auto;
+        }
+
+        .block> :not(:last-child) {
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        form>input {
+            width: 600px;
+        }
+
+        form> :not(:last-child) {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="wrapper">
+        <h1>Text app v. 1.0.0</h1>
+        <div class="block">
+            <div class="block__form">
+                <form @submit.prevent="addPost">
+                    <input type="text" v-model="post.title" :placeholder="post.placeholderTitle">
+                    <textarea rows="6" v-model="post.text" :placeholder="post.placeholderText"></textarea>
+                    <div>{{ getTextLength }} / 200</div>
+                    <button type="submit">Сохранить</button>
+                </form>
+            </div>
+
+            <div v-if="posts.length == 0">
+                Посты еще не добавлены
+            </div>
+
+            <div v-else>
+                <div v-for="(post, index) in posts" :key="post.id" class="block__post">
+
+                    <h3 class="block__title">{{ post.title }}</h3>
+                    <div>{{ post.date }}</div>
+                    <p>{{ post.text }}</p>
+                    <button>Изменить</button><button @click="removePost(index)">Удалить</button>
+                    <hr>
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
